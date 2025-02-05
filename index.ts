@@ -1,5 +1,6 @@
 import { getVehicleInfo, getVehicleInfoByVin, VehicleInfo } from "./api";
 import chalk from 'chalk';
+import { VERSION } from "./appconstants";
 
 /* Get input parameters */
 const args = process.argv.slice(2);
@@ -10,7 +11,6 @@ const command = args[0];
 /* Get the command arguments */
 const commandArgs = args.slice(1);
 
-
 // Switch
 switch (command) {
     case '--version':
@@ -18,10 +18,15 @@ switch (command) {
         console.log(version());
         break;
     case '--vin':
-    case '-v':
         getVehicleInfoByVin(commandArgs[0]);
         break;
     default:
+        // If empty command
+        if (command == null || command == '') {
+            console.log('No command specified. V.', version());
+            process.exit(1);
+        }
+
         getVehicleInfo(command).then((vehicleInfo) => {
 
             // Check if --raw flag is set
@@ -38,8 +43,7 @@ switch (command) {
 // FUNCTIONS
 export function version() {
     // Get version from package.json
-    const packageJson = require('./package.json');
-    return packageJson.version;
+    return VERSION;
 }
 
 // Pretty print
