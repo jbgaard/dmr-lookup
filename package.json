@@ -1,6 +1,6 @@
 {
   "name": "dmr-lookup",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Lookup vehicles in the danish vehicle registration database using a VIN or registered license plate",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
