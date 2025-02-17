@@ -18,7 +18,7 @@ export function main() {
     switch (command) {
         case '--version':
         case '-v':
-            console.log(version());
+            console.log(VERSION);
             break;
         case '--vin':
             getVehicleInfoByVin(commandArgs[0]);
@@ -26,7 +26,7 @@ export function main() {
         default:
             // If empty command
             if (command == null || command == '') {
-                console.log('No command specified. V.', version());
+                console.log('No command specified. V.', VERSION);
                 process.exit(1);
             }
 
@@ -49,12 +49,6 @@ export function main() {
             });
             break;
     }
-}
-
-// FUNCTIONS
-export function version() {
-    // Get version from package.json
-    return VERSION;
 }
 
 // Pretty print
