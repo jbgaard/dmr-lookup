@@ -1,43 +1,54 @@
-import { getVehicleInfo, getVehicleInfoByVin, VehicleInfo } from "./api";
+import { getVehicleInfo, getVehicleInfoByVin, VehicleInfo } from "./api.js";
 import chalk from 'chalk';
-import { VERSION } from "./appconstants";
+import { VERSION } from "./appconstants.js";
+import ora from 'ora';
 
-/* Get input parameters */
-const args = process.argv.slice(2);
+export function main() {
 
-/* Get the command */
-const command = args[0];
+    /* Get input parameters */
+    const args = process.argv.slice(2);
 
-/* Get the command arguments */
-const commandArgs = args.slice(1);
+    /* Get the command */
+    const command = args[0];
 
-// Switch
-switch (command) {
-    case '--version':
-    case '-v':
-        console.log(version());
-        break;
-    case '--vin':
-        getVehicleInfoByVin(commandArgs[0]);
-        break;
-    default:
-        // If empty command
-        if (command == null || command == '') {
-            console.log('No command specified. V.', version());
-            process.exit(1);
-        }
+    /* Get the command arguments */
+    const commandArgs = args.slice(1);
 
-        getVehicleInfo(command).then((vehicleInfo) => {
+    // Switch
+    switch (command) {
+        case '--version':
+        case '-v':
+            console.log(version());
+            break;
+        case '--vin':
+            getVehicleInfoByVin(commandArgs[0]);
+            break;
+        default:
+            // If empty command
+            if (command == null || command == '') {
+                console.log('No command specified. V.', version());
+                process.exit(1);
+            }
 
-            // Check if --raw flag is set
-            const raw = commandArgs.includes('--raw');
+            // Start spinner
+            const spinner = ora("Henter køretøjsinformationer").start();
 
-            // Pretty print vehicle info
-            PrettyPrint(vehicleInfo, raw);
-        }).catch((error) => {
-            console.error(error);
-        });
-        break;
+            // Get vehicle info
+            getVehicleInfo(command).then((vehicleInfo) => {
+
+                // Check if --raw flag is set
+                const raw = commandArgs.includes('--raw');
+
+                // Stop spinner
+                spinner.stop();
+
+                // Pretty print vehicle info
+                PrettyPrint(vehicleInfo, raw);
+            }).catch((error:Error) => {
+                console.error(error);
+            });
+            break;
+    }
 }
 
 // FUNCTIONS

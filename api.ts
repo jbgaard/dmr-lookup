@@ -1,4 +1,4 @@
-import { DMR_SERVICE_URL } from './appconstants';
+import { DMR_SERVICE_URL } from './appconstants.js';
 // Imports
 import axios, { AxiosInstance } from 'axios';
 
