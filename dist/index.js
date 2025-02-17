@@ -2,6 +2,8 @@ import { getVehicleInfo, getVehicleInfoByVin } from "./api.js";
 import chalk from 'chalk';
 import { VERSION } from "./appconstants.js";
 import ora from 'ora';
+import pkg from 'ts-luxon';
+const { DateTime } = pkg;
 export function main() {
     /* Get input parameters */
     const args = process.argv.slice(2);
@@ -54,6 +56,6 @@ export function PrettyPrint(info, raw = false) {
     console.log(chalk.gray(`Registreringsnummer: `), info.køretøj.registreringsforhold.registreringsNummer);
     console.log(chalk.gray(`Stelnummer:          `), info.køretøj.køretøj.stelnummer);
     console.log(chalk.gray(`Art:                 `), info.køretøj.køretøj.art);
-    console.log(chalk.gray(`Første registrering: `), info.køretøj.registreringsforhold.førsteRegistrering != null ? new Date(info.køretøj.registreringsforhold.førsteRegistrering).toLocaleDateString() : 'N/A');
+    console.log(chalk.gray(`Første registrering: `), info.køretøj.registreringsforhold.førsteRegistrering != null ? DateTime.fromJSDate(new Date(info.køretøj.registreringsforhold.førsteRegistrering)).toFormat("DD") : 'N/A');
     console.log(chalk.gray(`Status:              `), info.køretøj.registreringsforhold.status);
 }
