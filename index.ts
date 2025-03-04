@@ -124,6 +124,6 @@ export function PrettyPrint(info: VehicleInfo, raw: boolean = false) {
   if (info.køretøj.registreringsforhold.registreringsNummer != null)
     console.log(
       chalk.gray(`Læs mere:            `),
-      `https://bilopslag.nu/nummerplade/${info.køretøj.registreringsforhold.registreringsNummer}`,
+      `https://nrpla.de/${info.køretøj.registreringsforhold.registreringsNummer}`,
     );
 }
