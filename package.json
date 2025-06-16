@@ -5,6 +5,9 @@
   "exports": "./dist/index.js",
   "type": "module",
   "types": "dist/index.d.ts",
+  "files":[
+    "dist/"
+  ],
   "bin": {
     "dmr": "./dist/dmr",
     "dmr-lookup": "./dist/dmr"
