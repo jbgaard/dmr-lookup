@@ -8,7 +8,7 @@ export const getVehicleInfo = async (
 ): Promise<BildataFull> => {
   // Get vehicle info
   const response = await fetch(
-    `/api/dmr/licenseplate/search/${registrationNumber}`,
+    `${DMR_SERVICE_URL}/api/dmr/licenseplate/search/${registrationNumber}`,
     {
       headers: {
         "Content-Type": "application/json",
