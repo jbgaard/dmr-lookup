@@ -5,12 +5,12 @@
     "": {
       "name": "dmr-lookup",
       "dependencies": {
-        "picospinner": "latest",
-        "ts-luxon": "latest",
+        "picospinner": "^3.0.0",
+        "ts-luxon": "^6.2.0",
       },
       "devDependencies": {
-        "@types/node": "latest",
-        "typescript": "latest",
+        "@types/node": "^25.9.1",
+        "typescript": "^6.0.3",
       },
     },
   },
