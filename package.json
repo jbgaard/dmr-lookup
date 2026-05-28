@@ -20,13 +20,11 @@
   "author": "jbgaard <jonas@jbgaard.dk>",
   "license": "ISC",
   "devDependencies": {
-    "@types/node": "^25.0.9",
-    "typescript": "^5.9.3"
+    "@types/node": "^25.9.1",
+    "typescript": "^6.0.3"
   },
   "dependencies": {
-    "axios": "^1.13.2",
-    "chalk": "^5.6.2",
-    "ora": "^9.0.0",
+    "picospinner": "^3.0.0",
     "ts-luxon": "^6.2.0"
   }
 }

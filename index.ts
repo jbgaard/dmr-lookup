@@ -1,9 +1,9 @@
 import { getVehicleInfo, getVehicleInfoByVin } from "./api.js";
 import { BildataFull } from "./DMRClasses/DMR.js";
-import chalk from "chalk";
 import { VERSION } from "./appconstants.js";
-import ora from "ora";
 import { DateTime } from "ts-luxon";
+import { styleText } from "node:util";
+import { Spinner } from "picospinner";
 
 export function main() {
   /* Get input parameters */
@@ -32,7 +32,8 @@ export function main() {
       }
 
       // Start spinner
-      const spinner = ora("Henter køretøjsinformationer").start();
+      const spinner = new Spinner("Henter køretøjsinformationer");
+      spinner.start();
 
       // Get vehicle info
       getVehicleInfo(command)
@@ -80,11 +81,11 @@ export function PrettyPrint(info: BildataFull, raw: boolean = false) {
   // Print vehicle info
   // console.log(chalk.bgGreen.bold('          === Køretøj informationer ===          '));
   console.log(
-    chalk.bold(`Mærke/Model:          %s`),
+    styleText("bold", `Mærke/Model:          %s`),
     info.Baseinfo.Vehicle.MakeModel,
   );
   console.log(
-    chalk.gray(`Motor:               `),
+    styleText("gray", `Motor:               `),
     info.Technical.Engine.PowerSource != undefined
       ? info.Technical.Engine.PowerSource
       : "",
@@ -101,16 +102,19 @@ export function PrettyPrint(info: BildataFull, raw: boolean = false) {
       : "",
   );
   console.log(
-    chalk.gray(`Registreringsnummer: `),
+    styleText("gray", `Registreringsnummer: `),
     info.Baseinfo.Registration.RegistrationNumber,
   );
-  console.log(chalk.gray(`Stelnummer:          `), info.Baseinfo.Vehicle.VIN);
   console.log(
-    chalk.gray(`Art:                 `),
+    styleText("gray", `Stelnummer:          `),
+    info.Baseinfo.Vehicle.VIN,
+  );
+  console.log(
+    styleText("gray", `Art:                 `),
     info.Baseinfo.Vehicle.Variant,
   );
   console.log(
-    chalk.gray(`Første registrering: `),
+    styleText("gray", `Første registrering: `),
     info.Baseinfo.Registration.FirstRegistration != null
       ? DateTime.fromJSDate(
           new Date(info.Baseinfo.Registration.FirstRegistration),
@@ -118,13 +122,13 @@ export function PrettyPrint(info: BildataFull, raw: boolean = false) {
       : "N/A",
   );
   console.log(
-    chalk.gray(`Status:              `),
+    styleText("gray", `Status:              `),
     info.Baseinfo.Registration.Status,
   );
 
   if (info.Baseinfo.Registration.RegistrationNumber != null)
     console.log(
-      chalk.gray(`Læs mere:            `),
+      styleText("gray", `Læs mere:            `),
       `https://nrpla.de/${info.Baseinfo.Registration.RegistrationNumber}`,
     );
 }
